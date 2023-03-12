@@ -15,7 +15,7 @@ interface TaskState {
   delete: (id: string) => void;
 }
 
-export const useTaskStore = create<TaskState>()(
+export const useStore = create<TaskState>()(
   persist(
     (set) => ({
       tasks: [

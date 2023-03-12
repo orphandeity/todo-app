@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useTaskStore } from "../lib/store";
+import { useStore } from "../lib/store";
 
 const CreateTask = () => {
   const [newTask, setNewTask] = useState("");
 
-  const { create } = useTaskStore();
+  const { create } = useStore();
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();

@@ -1,9 +1,9 @@
-import { useTaskStore, Task } from "../lib/store";
+import { useStore, Task } from "../lib/store";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
 const TaskCard = ({ task }: { task: Task }) => {
-  const actions = useTaskStore();
+  const actions = useStore();
 
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: task.id });
