@@ -19,6 +19,7 @@ const CreateTask = () => {
         placeholder="Create new todo..."
         value={newTask}
         onChange={(e) => setNewTask(e.target.value)}
+        className="w-full"
       />
     </form>
   );
