@@ -13,6 +13,7 @@ interface TaskState {
   create: (text: string) => void;
   update: (id: string) => void;
   delete: (id: string) => void;
+  clear: () => void;
 }
 
 export const useStore = create<TaskState>()(
@@ -46,6 +47,11 @@ export const useStore = create<TaskState>()(
       delete: (id) =>
         set((state) => ({
           tasks: state.tasks.filter((task) => task.id !== id),
+        })),
+      // clear completed todos
+      clear: () =>
+        set((state) => ({
+          tasks: state.tasks.filter((task) => !task.isComplete),
         })),
     }),
     /**

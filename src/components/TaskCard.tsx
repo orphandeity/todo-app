@@ -17,7 +17,7 @@ const TaskCard = ({ task }: { task: Task }) => {
     <li
       ref={setNodeRef}
       style={style}
-      className="flex max-w-xs items-center justify-between gap-2 border-t p-2 text-sm"
+      className="flex items-center justify-between gap-3 border-b bg-white px-6 py-4"
     >
       <input
         type="checkbox"

@@ -21,7 +21,7 @@ import {
 import * as Tabs from "@radix-ui/react-tabs";
 
 const TaskList = () => {
-  const { tasks } = useStore();
+  const { tasks, clear } = useStore();
   const [animationParent] = useAutoAnimate(/** optional config */);
 
   // drag and drop gestures
@@ -49,7 +49,7 @@ const TaskList = () => {
   }
 
   return (
-    <div className="flex max-w-xs flex-col gap-4">
+    <div className="flex flex-col gap-4 text-xs">
       <CreateTask />
       <Tabs.Root defaultValue="all">
         <DndContext
@@ -57,49 +57,59 @@ const TaskList = () => {
           collisionDetection={closestCenter}
           onDragEnd={handleDragEnd}
         >
-          <ul ref={animationParent} className="border border-t-0">
-            <Tabs.Content value="all">
-              <SortableContext
-                items={tasks}
-                strategy={verticalListSortingStrategy}
-              >
-                {tasks.map((task) => (
-                  <TaskCard key={task.id} task={task} />
-                ))}
-              </SortableContext>
-            </Tabs.Content>
-            <Tabs.Content value="active">
-              <SortableContext
-                items={tasks}
-                strategy={verticalListSortingStrategy}
-              >
-                {tasks
-                  .filter((task) => !task.isComplete)
-                  .map((task) => (
+          <div className="overflow-hidden rounded-md bg-white shadow-lg">
+            <ul ref={animationParent}>
+              <Tabs.Content value="all">
+                <SortableContext
+                  items={tasks}
+                  strategy={verticalListSortingStrategy}
+                >
+                  {tasks.map((task) => (
                     <TaskCard key={task.id} task={task} />
                   ))}
-              </SortableContext>
-            </Tabs.Content>
-            <Tabs.Content value="completed">
-              <SortableContext
-                items={tasks}
-                strategy={verticalListSortingStrategy}
-              >
-                {tasks
-                  .filter((task) => task.isComplete)
-                  .map((task) => (
-                    <TaskCard key={task.id} task={task} />
-                  ))}
-              </SortableContext>
-            </Tabs.Content>
-          </ul>
+                </SortableContext>
+              </Tabs.Content>
+              <Tabs.Content value="active">
+                <SortableContext
+                  items={tasks}
+                  strategy={verticalListSortingStrategy}
+                >
+                  {tasks
+                    .filter((task) => !task.isComplete)
+                    .map((task) => (
+                      <TaskCard key={task.id} task={task} />
+                    ))}
+                </SortableContext>
+              </Tabs.Content>
+              <Tabs.Content value="completed">
+                <SortableContext
+                  items={tasks}
+                  strategy={verticalListSortingStrategy}
+                >
+                  {tasks
+                    .filter((task) => task.isComplete)
+                    .map((task) => (
+                      <TaskCard key={task.id} task={task} />
+                    ))}
+                </SortableContext>
+              </Tabs.Content>
+            </ul>
+            <fieldset className="flex justify-between px-6 py-4">
+              <p>
+                <span>{tasks.filter((task) => !task.isComplete).length}</span>{" "}
+                items left
+              </p>
+              <button onClick={() => clear()}>Clear Completed</button>
+            </fieldset>
+          </div>
         </DndContext>
-        <Tabs.List className="flex justify-center gap-2">
+        <Tabs.List className="mt-4 flex justify-center gap-2 rounded-md bg-white py-3 text-sm font-semibold shadow-lg">
           <Tabs.Trigger value="all">All</Tabs.Trigger>
           <Tabs.Trigger value="active">Active</Tabs.Trigger>
           <Tabs.Trigger value="completed">Completed</Tabs.Trigger>
         </Tabs.List>
       </Tabs.Root>
+      <p className="mx-auto mt-8">Drag and drop to reorder list</p>
     </div>
   );
 };
