@@ -32,7 +32,7 @@ const TaskCard = ({ task }: { task: Task }) => {
       >
         {task.text}
       </p>
-      <button onClick={() => actions.delete(task.id)}>
+      <button onClick={() => actions.delete(task.id)} aria-label="delete task">
         <TrashIcon />
       </button>
     </li>
