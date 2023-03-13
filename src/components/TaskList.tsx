@@ -49,7 +49,7 @@ const TaskList = () => {
   }
 
   return (
-    <div className="flex flex-col gap-4 text-xs">
+    <div className="flex flex-col gap-4 text-xs text-_lt-very-dark-grayish-blue">
       <CreateTask />
       <Tabs.Root defaultValue="all">
         <DndContext
@@ -57,7 +57,7 @@ const TaskList = () => {
           collisionDetection={closestCenter}
           onDragEnd={handleDragEnd}
         >
-          <div className="overflow-hidden rounded-md bg-white shadow-lg">
+          <div className="overflow-hidden rounded-md shadow-lg">
             <ul ref={animationParent}>
               <Tabs.Content value="all">
                 <SortableContext
@@ -94,22 +94,44 @@ const TaskList = () => {
                 </SortableContext>
               </Tabs.Content>
             </ul>
-            <fieldset className="flex justify-between px-6 py-4">
+            <fieldset className="flex justify-between bg-white px-6 py-4 text-_lt-dark-grayish-blue dark:bg-_dt-very-dark-desaturated-blue dark:text-_dt-very-dark-grayish-blue-1">
               <p>
                 <span>{tasks.filter((task) => !task.isComplete).length}</span>{" "}
                 items left
               </p>
-              <button onClick={() => clear()}>Clear Completed</button>
+              <button
+                onClick={() => clear()}
+                className="hover:text-_lt-very-dark-grayish-blue dark:hover:text-_dt-light-grayish-blue-hover"
+              >
+                Clear Completed
+              </button>
             </fieldset>
           </div>
         </DndContext>
-        <Tabs.List className="mt-4 flex justify-center gap-2 rounded-md bg-white py-3 text-sm font-semibold shadow-lg">
-          <Tabs.Trigger value="all">All</Tabs.Trigger>
-          <Tabs.Trigger value="active">Active</Tabs.Trigger>
-          <Tabs.Trigger value="completed">Completed</Tabs.Trigger>
+        <Tabs.List className="mt-4 flex justify-center gap-4 rounded-md bg-white py-3 text-sm font-semibold text-_lt-dark-grayish-blue shadow-lg dark:bg-_dt-very-dark-desaturated-blue dark:text-_dt-dark-grayish-blue">
+          <Tabs.Trigger
+            value="all"
+            className="hover:text-_lt-very-dark-grayish-blue active:text-_lt-very-dark-grayish-blue data-[state=active]:text-_bright-blue dark:hover:text-_dt-light-grayish-blue-hover"
+          >
+            All
+          </Tabs.Trigger>
+          <Tabs.Trigger
+            value="active"
+            className="hover:text-_lt-very-dark-grayish-blue active:text-_lt-very-dark-grayish-blue data-[state=active]:text-_bright-blue dark:hover:text-_dt-light-grayish-blue-hover"
+          >
+            Active
+          </Tabs.Trigger>
+          <Tabs.Trigger
+            value="completed"
+            className="hover:text-_lt-very-dark-grayish-blue active:text-_lt-very-dark-grayish-blue data-[state=active]:text-_bright-blue dark:hover:text-_dt-light-grayish-blue-hover"
+          >
+            Completed
+          </Tabs.Trigger>
         </Tabs.List>
       </Tabs.Root>
-      <p className="mx-auto mt-8">Drag and drop to reorder list</p>
+      <p className="mx-auto mt-8 text-sm text-_lt-dark-grayish-blue dark:text-_dt-very-dark-grayish-blue-1">
+        Drag and drop to reorder list
+      </p>
     </div>
   );
 };

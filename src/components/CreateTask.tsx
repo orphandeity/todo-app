@@ -16,15 +16,15 @@ const CreateTask = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex items-center gap-3 rounded-md bg-white px-6 py-3 shadow-sm focus-within:ring-2 focus-within:ring-blue-300"
+      className="flex items-center gap-3 rounded-md bg-white px-6 py-4 shadow-sm focus-within:ring-4 focus-within:ring-_bright-blue dark:bg-_dt-very-dark-desaturated-blue"
     >
-      <div className="h-4 w-4 rounded-full border" />
+      <div className="aspect-square h-5 rounded-full border border-_dt-very-dark-grayish-blue-2" />
       <input
         type="text"
         placeholder="Create new todo..."
         value={newTask}
         onChange={(e) => setNewTask(e.target.value)}
-        className="flex-1 border-none p-0 placeholder:text-xs focus:ring-0"
+        className="flex-1 border-none p-0 text-xs placeholder:text-xs placeholder:text-_lt-dark-grayish-blue focus:ring-0 dark:bg-_dt-very-dark-desaturated-blue dark:text-_dt-light-grayish-blue dark:placeholder:text-_dt-dark-grayish-blue"
       />
     </form>
   );

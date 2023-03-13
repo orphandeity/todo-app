@@ -1,6 +1,8 @@
 import { useStore, Task } from "../lib/store";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import * as Checkbox from "@radix-ui/react-checkbox";
+import { clsx } from "clsx";
 
 const TaskCard = ({ task }: { task: Task }) => {
   const actions = useStore();
@@ -17,42 +19,60 @@ const TaskCard = ({ task }: { task: Task }) => {
     <li
       ref={setNodeRef}
       style={style}
-      className="flex items-center justify-between gap-3 border-b bg-white px-6 py-4"
+      className="flex items-center justify-between gap-3 border-b bg-white px-6 py-4 dark:border-_dt-very-dark-grayish-blue-2 dark:bg-_dt-very-dark-desaturated-blue"
     >
-      <input
-        type="checkbox"
+      <Checkbox.Root
         checked={task.isComplete}
-        onChange={() => actions.update(task.id)}
-        className="rounded-full"
-      />
+        onCheckedChange={() => actions.update(task.id)}
+        className="peer flex aspect-square h-5 items-center justify-center rounded-full border border-_dt-very-dark-grayish-blue-2 focus:outline-none focus:ring-2 focus:ring-_check-bg-gradient-1 focus:ring-offset-2 dark:bg-_dt-very-dark-desaturated-blue"
+      >
+        <Checkbox.Indicator className="flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-tl from-_lt-check-bg-gradient-2 to-_check-bg-gradient-1">
+          <CheckIcon />
+        </Checkbox.Indicator>
+      </Checkbox.Root>
       <p
         {...attributes}
         {...listeners}
-        className="flex-1 cursor-grab active:cursor-grabbing"
+        className={clsx([
+          "flex-1 cursor-grab active:cursor-grabbing dark:text-_dt-light-grayish-blue",
+          task.isComplete &&
+            "text-_lt-light-grayish-blue line-through dark:text-_dt-very-dark-grayish-blue-1",
+        ])}
       >
         {task.text}
       </p>
       <button onClick={() => actions.delete(task.id)} aria-label="delete task">
-        <TrashIcon />
+        <DeleteIcon />
       </button>
     </li>
   );
 };
 
-const TrashIcon = () => {
+const CheckIcon = () => {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width={11} height={9}>
+      <path
+        fill="none"
+        stroke="#FFF"
+        strokeWidth={2}
+        d="M1 4.304L3.696 7l6-6"
+      />
+    </svg>
+  );
+};
+
+const DeleteIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={1.5}
-      stroke="currentColor"
-      className="h-4 w-4"
+      width={18}
+      height={18}
+      className="scale-75"
     >
       <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+        fill="#494C6B"
+        fillRule="evenodd"
+        d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z"
       />
     </svg>
   );

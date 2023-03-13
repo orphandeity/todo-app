@@ -16,14 +16,27 @@ interface TaskState {
   clear: () => void;
 }
 
+const initialTasks = [
+  {
+    id: nanoid(),
+    text: "Complete online JavaScript course",
+    isComplete: true,
+  },
+  { id: nanoid(), text: "Jog around the park 3x", isComplete: false },
+  { id: nanoid(), text: "10 minutes meditation", isComplete: false },
+  { id: nanoid(), text: "Read for 1 hour", isComplete: false },
+  { id: nanoid(), text: "Pick up groceries", isComplete: false },
+  {
+    id: nanoid(),
+    text: "Complete Todo App on Frontend Mentor",
+    isComplete: false,
+  },
+];
+
 export const useStore = create<TaskState>()(
   persist(
     (set) => ({
-      tasks: [
-        { id: nanoid(), text: "eat", isComplete: false },
-        { id: nanoid(), text: "sleep", isComplete: false },
-        { id: nanoid(), text: "code", isComplete: true },
-      ],
+      tasks: initialTasks,
       // create a new todo
       create: (text) =>
         set((state) => ({
