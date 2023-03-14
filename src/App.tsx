@@ -4,20 +4,50 @@ import DarkModeToggle from "./components/DarkModeToggle";
 
 function App() {
   return (
-    <main className="mx-auto min-h-screen max-w-sm p-6">
-      <div className="flex flex-col gap-8">
-        <header className="flex items-center justify-between">
-          <h1 className="mt-4 text-3xl font-semibold tracking-[0.3em] text-white">
-            TODO
-          </h1>
-          <DarkModeToggle />
-        </header>
-        <TaskList />
-        <ClearLocalStorage />
-      </div>
-    </main>
+    <>
+      <main className="mx-auto min-h-screen max-w-sm p-6 desktop:max-w-xl">
+        <div className="flex flex-col gap-8">
+          <header className="flex items-center justify-between">
+            <h1 className="mt-4 text-3xl font-semibold tracking-[0.3em] text-white desktop:text-4xl desktop:tracking-[0.4em]">
+              TODO
+            </h1>
+            <DarkModeToggle />
+          </header>
+          <TaskList />
+        </div>
+      </main>
+      <Attribution />
+    </>
   );
 }
+
+const Attribution = () => {
+  return (
+    <div className="absolute bottom-4 flex w-full justify-center gap-2 text-xs text-_lt-dark-grayish-blue dark:text-_dt-dark-grayish-blue desktop:text-sm">
+      <p>
+        Challenge by{" "}
+        <a
+          href="https://www.frontendmentor.io?ref=challenge"
+          target="_blank"
+          className="text-_bright-blue"
+        >
+          Frontend Mentor
+        </a>
+        .
+      </p>
+      <p>
+        Coded by{" "}
+        <a
+          href="https://www.frontendmentor.io/profile/orphandeity"
+          className="text-_bright-blue"
+        >
+          Jeff R Williams
+        </a>
+        .
+      </p>
+    </div>
+  );
+};
 
 const ClearLocalStorage = () => {
   return (

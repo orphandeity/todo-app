@@ -19,8 +19,11 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import * as Tabs from "@radix-ui/react-tabs";
+import { useWindowSize } from "../lib/useWindowSize";
 
 const TaskList = () => {
+  const windowSize = useWindowSize();
+
   const { tasks, clear } = useStore();
   const [animationParent] = useAutoAnimate(/** optional config */);
 
@@ -49,7 +52,7 @@ const TaskList = () => {
   }
 
   return (
-    <div className="flex flex-col gap-4 text-xs text-_lt-very-dark-grayish-blue">
+    <div className="flex flex-col gap-4 text-xs text-_lt-very-dark-grayish-blue desktop:text-base">
       <CreateTask />
       <Tabs.Root defaultValue="all">
         <DndContext
@@ -94,11 +97,12 @@ const TaskList = () => {
                 </SortableContext>
               </Tabs.Content>
             </ul>
-            <fieldset className="flex justify-between bg-white px-6 py-4 text-_lt-dark-grayish-blue dark:bg-_dt-very-dark-desaturated-blue dark:text-_dt-very-dark-grayish-blue-1">
+            <fieldset className="flex justify-between bg-white px-6 py-4 text-_lt-dark-grayish-blue dark:bg-_dt-very-dark-desaturated-blue dark:text-_dt-very-dark-grayish-blue-1 desktop:text-sm">
               <p>
                 <span>{tasks.filter((task) => !task.isComplete).length}</span>{" "}
                 items left
               </p>
+              {windowSize.width >= 1440 && <TabList />}
               <button
                 onClick={() => clear()}
                 className="hover:text-_lt-very-dark-grayish-blue dark:hover:text-_dt-light-grayish-blue-hover"
@@ -108,31 +112,37 @@ const TaskList = () => {
             </fieldset>
           </div>
         </DndContext>
-        <Tabs.List className="mt-4 flex justify-center gap-4 rounded-md bg-white py-3 text-sm font-semibold text-_lt-dark-grayish-blue shadow-lg dark:bg-_dt-very-dark-desaturated-blue dark:text-_dt-dark-grayish-blue">
-          <Tabs.Trigger
-            value="all"
-            className="hover:text-_lt-very-dark-grayish-blue active:text-_lt-very-dark-grayish-blue data-[state=active]:text-_bright-blue dark:hover:text-_dt-light-grayish-blue-hover"
-          >
-            All
-          </Tabs.Trigger>
-          <Tabs.Trigger
-            value="active"
-            className="hover:text-_lt-very-dark-grayish-blue active:text-_lt-very-dark-grayish-blue data-[state=active]:text-_bright-blue dark:hover:text-_dt-light-grayish-blue-hover"
-          >
-            Active
-          </Tabs.Trigger>
-          <Tabs.Trigger
-            value="completed"
-            className="hover:text-_lt-very-dark-grayish-blue active:text-_lt-very-dark-grayish-blue data-[state=active]:text-_bright-blue dark:hover:text-_dt-light-grayish-blue-hover"
-          >
-            Completed
-          </Tabs.Trigger>
-        </Tabs.List>
+        {windowSize.width < 1440 && <TabList />}
       </Tabs.Root>
       <p className="mx-auto mt-8 text-sm text-_lt-dark-grayish-blue dark:text-_dt-very-dark-grayish-blue-1">
         Drag and drop to reorder list
       </p>
     </div>
+  );
+};
+
+const TabList = () => {
+  return (
+    <Tabs.List className="mt-4 flex justify-center gap-4 rounded-md bg-white py-3 text-sm font-semibold text-_lt-dark-grayish-blue shadow-lg dark:bg-_dt-very-dark-desaturated-blue dark:text-_dt-dark-grayish-blue desktop:mt-0 desktop:py-0 desktop:shadow-none">
+      <Tabs.Trigger
+        value="all"
+        className="hover:text-_lt-very-dark-grayish-blue active:text-_lt-very-dark-grayish-blue data-[state=active]:text-_bright-blue dark:hover:text-_dt-light-grayish-blue-hover"
+      >
+        All
+      </Tabs.Trigger>
+      <Tabs.Trigger
+        value="active"
+        className="hover:text-_lt-very-dark-grayish-blue active:text-_lt-very-dark-grayish-blue data-[state=active]:text-_bright-blue dark:hover:text-_dt-light-grayish-blue-hover"
+      >
+        Active
+      </Tabs.Trigger>
+      <Tabs.Trigger
+        value="completed"
+        className="hover:text-_lt-very-dark-grayish-blue active:text-_lt-very-dark-grayish-blue data-[state=active]:text-_bright-blue dark:hover:text-_dt-light-grayish-blue-hover"
+      >
+        Completed
+      </Tabs.Trigger>
+    </Tabs.List>
   );
 };
 

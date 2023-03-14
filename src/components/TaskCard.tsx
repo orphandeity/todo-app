@@ -19,12 +19,12 @@ const TaskCard = ({ task }: { task: Task }) => {
     <li
       ref={setNodeRef}
       style={style}
-      className="flex items-center justify-between gap-3 border-b bg-white px-6 py-4 dark:border-_dt-very-dark-grayish-blue-2 dark:bg-_dt-very-dark-desaturated-blue"
+      className="flex items-center justify-between gap-3 border-b bg-white p-4 dark:border-_dt-very-dark-grayish-blue-2 dark:bg-_dt-very-dark-desaturated-blue"
     >
       <Checkbox.Root
         checked={task.isComplete}
         onCheckedChange={() => actions.update(task.id)}
-        className="peer flex aspect-square h-5 items-center justify-center rounded-full border border-_dt-very-dark-grayish-blue-2 focus:outline-none focus:ring-2 focus:ring-_check-bg-gradient-1 focus:ring-offset-2 dark:bg-_dt-very-dark-desaturated-blue"
+        className="peer flex aspect-square h-5 items-center justify-center rounded-full border focus:outline-none focus:ring-2 focus:ring-_bright-blue dark:border-_dt-very-dark-grayish-blue-2 dark:bg-_dt-very-dark-desaturated-blue"
       >
         <Checkbox.Indicator className="flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-tl from-_lt-check-bg-gradient-2 to-_check-bg-gradient-1">
           <CheckIcon />

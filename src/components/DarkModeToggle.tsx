@@ -27,7 +27,7 @@ const MoonIcon = () => {
       xmlns="http://www.w3.org/2000/svg"
       width={26}
       height={26}
-      className="scale-90"
+      className="scale-90 desktop:scale-100"
     >
       <path
         fill="#FFF"
@@ -44,7 +44,7 @@ const SunIcon = () => {
       xmlns="http://www.w3.org/2000/svg"
       width={26}
       height={26}
-      className="scale-90"
+      className="scale-90 desktop:scale-100"
     >
       <path
         fill="#FFF"
